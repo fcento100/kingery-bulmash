@@ -1,17 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "kingery_bulmash"
-version = "0.0.1"
 authors = [
   { name="fcento100"},
 ]
-description = "Hemispherical TNT Surface Burst Parameters Calculator based on Kingery-Bulmash 1984 Model"
+description = "Kingery-Bulmash 1984 Blast Parameters Calculator"
+version = "0.0.1"
 readme = "README.md"
+license = {file = "LICENSE"}
 requires-python = ">=3.12"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+keywords = ["blast", "kingery","bulmash","tnt"]
 
 [project.urls]
 Homepage = "https://github.com/fcento100/kingery_bulmash"

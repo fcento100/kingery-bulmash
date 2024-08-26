@@ -1,2 +1,2 @@
 # kingery_bulmash
- Kingery-Bulmash 1984 Blast Parameters
+ Kingery-Bulmash 1984 Blast Parameters Calculator
