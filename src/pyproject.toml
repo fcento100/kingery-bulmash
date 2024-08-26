@@ -1,0 +1,18 @@
+[project]
+name = "kingery_bulmash"
+version = "0.0.1"
+authors = [
+  { name="fcento100"},
+]
+description = "Hemispherical TNT Surface Burst Parameters Calculator based on Kingery-Bulmash 1984 Model"
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/fcento100/kingery_bulmash"
+Issues = "https://github.com/fcento100/kingery_bulmash/issues"
