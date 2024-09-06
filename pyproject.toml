@@ -8,12 +8,13 @@ authors = [
   { name="fcento100"},
 ]
 description = "Kingery-Bulmash 1984 Blast Parameters Calculator"
-version = "0.0.2"
+dynamic = ["version"]
 readme = "README.md"
 license = {file = "LICENSE"}
 requires-python = ">=3.12"
 classifiers = [
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
@@ -22,3 +23,6 @@ keywords = ["blast", "kingery","bulmash","tnt"]
 [project.urls]
 Homepage = "https://github.com/fcento100/kingery_bulmash"
 Issues = "https://github.com/fcento100/kingery_bulmash/issues"
+
+[tool.hatch.version]
+path = "src/kingery_bulmash/__init__.py"
