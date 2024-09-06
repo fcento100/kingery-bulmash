@@ -21,8 +21,8 @@ classifiers = [
 keywords = ["blast", "kingery","bulmash","tnt"]
 
 [project.urls]
-Homepage = "https://github.com/fcento100/kingery_bulmash"
-Issues = "https://github.com/fcento100/kingery_bulmash/issues"
+Homepage = "https://github.com/fcento100/kingery-bulmash"
+Issues = "https://github.com/fcento100/kingery-bulmash/issues"
 
 [tool.hatch.version]
-path = "src/kingery_bulmash/__init__.py"
+path = "src/kingery_bulmash/__about__.py"

@@ -1,2 +1,4 @@
-__author__ = "fcento100"
-__version__ = "0.0.3"
+from kingery_bulmash.kingery_bulmash import (
+    Units,
+    get_results
+    )
