@@ -6,13 +6,13 @@ Created on Sat Aug 24 23:24:29 2024
 """
 
 from dataclasses import dataclass
-from enum import Enum
+from enum import Enum, auto
 from math import exp, log
 
 
 class Units(Enum):
-    METRIC = 1
-    IMPERIAL = 2
+    METRIC = auto()
+    IMPERIAL = auto()
 
 
 @dataclass
