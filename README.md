@@ -15,7 +15,7 @@ pip install kingery-bulmash
 
 ### Usage
 
-The `Blast_Parameters` dataclass calculates all the parameters on creation. Three *field*s are required to create the dataclass:
+The `Blast_Parameters` dataclass calculates all the parameters on creation. Three *field*s are required to create the ***dataclass***:
 
 > `Units` (Enum): `Units.METRIC` or `Units.IMPERIAL`, defines the unit system.
 
@@ -36,7 +36,7 @@ print(res_metric)
 ```
 Prints:
 
-```python
+```bash
 Blast Parameters (Kingery-Bulmash)
 NEQ: 10000 kg
 Distance: 500 m
@@ -49,7 +49,8 @@ Reflected Impulse: 1063.03 kPa-ms
 Shock Front Velocity: 347.33 m/s
 ```
 
-> Please Note: The *fields* are rounded to 2 decimal places when printing (exept for neq and distance). Extraction of the raw output will be shown further down.
+> [!NOTE]
+> The *fields* are rounded to 2 decimal places when printing (except for neq and distance). Extraction of the raw output will be shown further down.
 
 Alternatively `kb.` can be omitted by changing the way the library is imported. For example (also using imperial units):
 
@@ -65,7 +66,7 @@ print(res_imperial)
 
 Prints:
 
-```
+```bash
 Blast Parameters (Kingery-Bulmash)
 NEQ: 5000 lb
 Distance: 300 ft
@@ -78,7 +79,7 @@ Reflected Impulse: 166.67 psi-ms
 Shock Front Velocity: 1226.43 ft/s
 ```
 
-The following *field*s are available in the `Blast_Parameters` dataclass: 
+The following *field*s are available in the `Blast_Parameters` ***dataclass***: 
 
 ```
 unit_system
@@ -94,7 +95,7 @@ shock_front_velocity
 all_units
 ```
 
-If for example, only the `incident_pressure` is required it can be extracted as such:
+If for example, only the `incident_pressure` is required, it can be extracted as such:
 
 ```python
 from kingery_bulmash import Units, Blast_Parameters
@@ -114,7 +115,7 @@ print(incident_pr, incident_pr_units)
 
 Prints:
 
-```
+```python
 5.0549639655028455 kPa
 ```
 
@@ -137,11 +138,15 @@ Prints:
 {'neq': (10000, 'kg'), 'distance': (500, 'm'), 'time_of_arrival': (1276.1650108864796, 'ms'), 'incident_pressure': (5.0549639655028455, 'kPa'), 'reflected_pressure': (10.244621193146642, 'kPa'), 'positive_phase_duration': (133.23344980362697, 'ms'), 'incident_impulse': (295.87689480141484, 'kPa-ms'), 'reflected_impulse': (1063.0270073779907, 'kPa-ms'), 'shock_front_velocity': (347.3295095310771, 'm/s')}
 ```
 
-As a `Blast_Parameters` is ***dataclass*** the special method `__repr__` is available:
+> [!TIP]
+> As `Blast_Parameters` is a ***dataclass***, the special method `__repr__` is available:
 
 ```python
 print(res.__repr__())
 ```
+
+Prints:
+
 ```python
 Blast_Parameters(unit_system=<Units.METRIC: 1>, neq=10000, distance=500, time_of_arrival=1276.1650108864796, incident_pressure=5.0549639655028455, reflected_pressure=10.244621193146642, positive_phase_duration=133.23344980362697, incident_impulse=295.87689480141484, reflected_impulse=1063.0270073779907, shock_front_velocity=347.3295095310771, all_units={'neq': 'kg', 'distance': 'm', 'time_of_arrival': 'ms', 'incident_pressure': 'kPa', 'reflected_pressure': 'kPa', 'positive_phase_duration': 'ms', 'incident_impulse': 'kPa-ms', 'reflected_impulse': 'kPa-ms', 'shock_front_velocity': 'm/s'})
 ```
