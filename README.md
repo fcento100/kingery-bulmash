@@ -15,7 +15,7 @@ pip install kingery-bulmash
 
 ### Usage
 
-The `Blast_Parameters` dataclass calculates all the parameters on creation. Three *field*s are required to create the ***dataclass***:
+The `Blast_Parameters` ***dataclass*** calculates all the parameters on creation. Three *field*s are required to create the ***dataclass***:
 
 - **Units** (Enum): ***Units.METRIC*** or ***Units.IMPERIAL***
     >Defines the unit system.
@@ -28,15 +28,15 @@ The `Blast_Parameters` dataclass calculates all the parameters on creation. Thre
 
 A fourth optional *field* can also be passed:
 
-- **safe** (bool): Default = **True**
-    >[!IMPORTANT]
-    >This parameter defines how the  ***dataclass*** should handle out of range errors. By default `safe=True` (does not have to be specified). `Blast_Parameters` will `raise ValueError` if any *field* is out of range. 
-    
-    >[!CAUTION]
-    >When `safe=False`, out of range *field*s will be set to **None** instead. Calculated *fields* are *Optional[float]*.
+- **safe** (bool) = **True**
+> [!IMPORTANT]
+> `safe` defines how the ***dataclass*** should handle out of range errors. When `safe=True`, `Blast_Parameters` will `raise ValueError` if any *field* is out of range. `safe=True` is the default and does not have to be specified.
 
-    >[!TIP]
-    >When computing a range of neq or distances, use `try` and `except` to handle the `ValueError` without halting the program. [Python Errors Tutorial](https://docs.python.org/3/tutorial/errors.html).
+> [!CAUTION]
+> When `safe=False`, out of range *field*s will be set to **None** instead. Calculated *fields* are *Optional[float]*.
+
+> [!TIP]
+> When computing a range of neq or distances, use `try` and `except` to handle any `ValueError` without halting the program. [Python Errors Tutorial](https://docs.python.org/3/tutorial/errors.html).
 
 Example Metric usage:
 
