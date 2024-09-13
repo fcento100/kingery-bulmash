@@ -1,6 +1,6 @@
 # Kingery-Bulmash 1984 Blast Parameters Calculator
 
-This implementation in python of the formulas from the unclassified paper: 
+Python implementation of the formulas from the unclassified paper: 
 
 >**Simplified Kingery Airblast Calculations**, Aug 1994
 
