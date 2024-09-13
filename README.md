@@ -1,11 +1,12 @@
 # Kingery-Bulmash 1984 Blast Parameters Calculator
 
-This implementation in python follows the original unclassified paper: 
+This implementation in python of the formulas from the unclassified paper: 
+
 >**Simplified Kingery Airblast Calculations**, Aug 1994
 
-It is applicable for TNT equivalent NEQs and hemispherical surface bursts.
+It is applicable for TNT equivalent NEQ and hemispherical surface bursts.
 
-### Installation
+## Installation
 
 Using pip:
 
@@ -13,45 +14,27 @@ Using pip:
 pip install kingery-bulmash
 ```
 
-### Usage
+## Usage
 
-The `Blast_Parameters` ***dataclass*** calculates all the parameters on creation. Three *field*s are required to create the ***dataclass***:
-
-- **Units** (Enum): ***Units.METRIC*** or ***Units.IMPERIAL***
-    >Defines the unit system.
-
-- **neq** (float)
-    >TNT equivalent quantity in **kg** or **lb** depending on the `Units` *field*.
-
-- **distance** (float)
-    >Distance from the explosive in **m** or **ft**  depending on the `Units` *field*.
-
-A fourth optional *field* can also be passed:
-
-- **safe** (bool) = **True**
-> [!IMPORTANT]
-> `safe` defines how the ***dataclass*** should handle out of range errors. When `safe=True`, `Blast_Parameters` will `raise ValueError` if any *field* is out of range. `safe=True` is the default and does not have to be specified.
-
-> [!CAUTION]
-> When `safe=False`, out of range *field*s will be set to **None** instead. Calculated *fields* are *Optional[float]*.
-
-> [!TIP]
-> When computing a range of neq or distances, use `try` and `except` to handle any `ValueError` without halting the program. [Python Errors Tutorial](https://docs.python.org/3/tutorial/errors.html).
-
-Example Metric usage:
+```python
+import kingery_bulmash as kb
+```
+Use prefix `kb.` to import all required objects. An example for a TNT eqivalent NEQ of 10,000 kg at 500 m:
 
 ```python
 import kingery_bulmash as kb
 
 # for metric units: 10000kg at 500m
-res_metric = kb.Blast_Parameters(
-    unit_system=kb.Units.METRIC, neq=10000, distance=500, safe=True)
+res = kb.Blast_Parameters(unit_system=kb.Units.METRIC, 
+                          neq=10000, 
+                          distance=500)
 
-print(res_metric)
+print(res)
 ```
-Prints:
+<details>
+<summary>Expand to see console output</summary>
 
-```bash
+```python
 Blast Parameters (Kingery-Bulmash)
 NEQ: 10000 kg
 Distance: 500 m
@@ -63,106 +46,136 @@ Incident Impulse: 295.87689480141484 kPa-ms
 Reflected Impulse: 1063.0270073779907 kPa-ms
 Shock Front Velocity: 347.3295095310771 m/s
 ```
+</details>
 
-> [!NOTE]
-> The *fields* are rounded to 2 decimal places when printing (except for neq and distance). Extraction of the raw output will be shown further down.
+## kb.Units
 
-Alternatively `kb.` can be omitted by changing the way the library is imported. For example (also using imperial units):
+The `kb.Units` *Enum* is how we select the units for the calculation, it needs to be passed to `kb.Blast_Parameters` as either `kb.Units.METRIC` or `kb.Units.IMPERIAL`. 
 
+- `kb.Units.METRIC` 
+    > for **neq** in *kg* and **distance**  in *m*.
+- `kb.Units.IMPERIAL`
+    > for **neq** in *lb* and **distance**  in *ft*.
+
+> [!IMPORTANT]
+> The library does not convert between units. Rather, it uses the metric and imperial parameters from the paper directly, therefore there might be slight differences between the results. 
+
+## kb.Blast_Parameters
+
+### ***class*** kb.Blast_Parameters(***unit_system***, ***neq***, ***distance***, ***safe**=True*)
+
+The `Blast_Parameters` *dataclass* calculates all the Kingery-Bulmash parameters from the paper. 
+
+Attributes:
+
+- **unit_system** : ***kb.Units.METRIC*** or ***kb.Units.IMPERIAL***
+    > Defines the unit system of the imput and calculated results. See `kb.Units` section [here](#kbUnits).
+
+- **neq**: *float*
+    > TNT equivalent net explosive quantity. **kg** or **lb** based on **unit_system**.
+
+- **distance**: *float*
+    > Distance from the explosive. **m** or **ft** based on **unit_system**.
+ 
+ - **safe**: *bool, optional*
+    > When `True` (default), `kb.Blast_Parameters` will raise a `ValueError` if any *attribute* is out of range. When `False` any *attribute* out of range will be set to `None` without raising a `ValueError`, this allows to significantly expand the range of values for less sensitive attributes. Default is `True`.
+
+> [!TIP]
+> `Blast_Parameters` can raise `Exception` and `ValueError`, it is recommended to use `try` and `except` to handle this this behaviour. [Python Errors Tutorial](https://docs.python.org/3/tutorial/errors.html).
+
+\_\_post_init__ attributes:
+
+- **time_of_arrival**: *float, None*
+    > Time of arrival in **ms**.
+- **incident_pressure**: *float, None*
+    > Incident pressure in **kPa** or **psi** based on **unit_system**.
+- **reflected_pressure**: *float, None*
+    > Reflected pressure in **kPa** or **psi** based on **unit_system**.
+- **positive_phase_duration**: *float, None*
+    > Positive phase duration in **ms**.
+- **incident_impulse**: *float, None*
+    > Incident inpulse in **kPa-ms** or **psi-ms** based on **unit_system**.
+- **reflected_impulse**: *float, None*
+    > Reflected impulse in **kPa-ms** or **psi-ms** based on **unit_system**.
+- **shock_front_velocity**: *float, None*
+    > Shock front velocity in **m/s** or **ft/s** based on **unit_system**.
+- **all_units**: *dict*
+    > Dictionary containing *key: value* pairs where the *key* is the attribute name as a `str` and the *value* is the unit as `str`.
+
+Methods:
+
+- **to_dict**()
+    > Returns a `dict` representation of the *dataclass*
+- **\_\_repr__**()
+    > Inherits the default *dataclass* behaviour
+- **\_\_str__**()
+    > "Pretty" representation of the data as `str`
+
+## Examples:
+
+### Example 1: Single Attribute
 ```python
-from kingery_bulmash import Units, Blast_Parameters
+import kingery_bulmash as kb
 
-# for imperial units: 5000 lb at 300 ft
-res_imperial = Blast_Parameters(
-    unit_system = Units.IMPERIAL, neq=5000, distance=300)
+res = kb.Blast_Parameters(unit_system=kb.Units.METRIC, 
+                          neq=10000, 
+                          distance=500, 
+                          safe=True)
 
-print(res_imperial)
-```
-
-Prints:
-
-```bash
-Blast Parameters (Kingery-Bulmash)
-NEQ: 5000 lb
-Distance: 300 ft
-Time of Arrival: 175.43118071129905 ms
-Incident Pressure: 3.650475210867953 psi
-Reflected Pressure: 8.003622015824611 psi
-Positive Phase Duration: 55.982972601832884 ms
-Incident Impulse: 83.29901885430428 psi-ms
-Reflected Impulse: 166.6677895494521 psi-ms
-Shock Front Velocity: 1226.4287811256488 ft/s
-```
-
-The following *field*s are available in the `Blast_Parameters` ***dataclass***: 
-
-```
-unit_system
-neq
-distance
-safe
-time_of_arrival
-incident_pressure
-reflected_pressure
-positive_phase_duration
-incident_impulse
-reflected_impulse
-shock_front_velocity
-all_units
-```
-
-If for example, only the `incident_pressure` is required, it can be extracted as such:
-
-```python
-from kingery_bulmash import Units, Blast_Parameters
-
-res = Blast_Parameters(
-    unit_system=Units.METRIC, neq=10000, distance=500, safe=False)
-
-#getting the incident pressure
-incident_pr = res.incident_pressure
+#getting only incident pressure
+pr = res.incident_pressure
 
 #getting the units of incident pressure
-incident_pr_units = res.all_units['incident_pressure']
+pr_u = res.all_units['incident_pressure']
 
-#printing both incident pressure and the units
-print(incident_pr, incident_pr_units)
+print(pr, pr_u)
 ```
 
-Prints:
+<details>
+<summary>Expand to see console output</summary>
 
 ```python
 5.0549639655028455 kPa
 ```
+</details>
 
-The results can also be extracted as a ***dict*** for convenince with the `to_dict()` class method. Each ***dict*** *key* represents a `Blast_Parameters` *field* while the ***dict*** *value* is a ***tuple*** containing the *field* value and its unit as ***str*** for convenience. 
+### Example 2: Loop Over Range (safe=False)
 
-An example is provided below:
-
-```python
-from kingery_bulmash import Units, Blast_Parameters
-
-res = Blast_Parameters(
-    unit_system=Units.METRIC, neq=10000, distance=500)
-
-print(res.to_dict())
-```
-
-Prints:
+In this example we set `safe=False` as the range of scaled distances allowed by *incident_impulse* is larger than *shock_front_velocity* which would cause a `ValueError` sooner if `safe=True`. `Try` and `except` used to handle when distance is 0. 
 
 ```python
-{'neq': (10000, 'kg'), 'distance': (500, 'm'), 'time_of_arrival': (1276.1650108864796, 'ms'), 'incident_pressure': (5.0549639655028455, 'kPa'), 'reflected_pressure': (10.244621193146642, 'kPa'), 'positive_phase_duration': (133.23344980362697, 'ms'), 'incident_impulse': (295.87689480141484, 'kPa-ms'), 'reflected_impulse': (1063.0270073779907, 'kPa-ms'), 'shock_front_velocity': (347.3295095310771, 'm/s')}
+import kingery_bulmash as kb
+
+NEQ = 5000
+for dist in range(0, 10000, 1000):
+    try:
+        RES = kb.Blast_Parameters(unit_system=kb.Units.IMPERIAL,
+                                  neq=NEQ,
+                                  distance=dist,
+                                  safe=False)
+        
+        i_imp = RES.incident_impulse
+        i_imp_u = RES.all_units["incident_impulse"]
+        
+        print(f'{dist} ft: {i_imp} {i_imp_u}')
+    
+    except ValueError as err:
+        print(f'{dist} ft: {err}')
 ```
 
-> [!TIP]
-> As `Blast_Parameters` is a ***dataclass***, the special method `__repr__` is available:
+<details>
+<summary>Expand to see console output</summary>
 
 ```python
-print(res.__repr__())
+0 ft: 'distance' must be > 0.
+1000 ft: 26.167261959845302 psi-ms
+2000 ft: 12.835212556333252 psi-ms
+3000 ft: 8.344381432625331 psi-ms
+4000 ft: 6.147651070542891 psi-ms
+5000 ft: 4.8505476573514335 psi-ms
+6000 ft: 3.99668842429768 psi-ms
+7000 ft: None psi-ms
+8000 ft: None psi-ms
+9000 ft: None psi-ms
 ```
-
-Prints:
-
-```python
-Blast_Parameters(unit_system=<Units.IMPERIAL: 2>, neq=10000, distance=500, safe=True, time_of_arrival=321.847019237488, incident_pressure=2.421929166457596, reflected_pressure=5.154210873923219, positive_phase_duration=77.27391751066048, incident_impulse=80.60100811411623, reflected_impulse=155.56924419995374, shock_front_velocity=1190.0575398759968, all_units={'neq': 'lb', 'distance': 'ft', 'time_of_arrival': 'ms', 'incident_pressure': 'psi', 'reflected_pressure': 'psi', 'positive_phase_duration': 'ms', 'incident_impulse': 'psi-ms', 'reflected_impulse': 'psi-ms', 'shock_front_velocity': 'ft/s'})
-```
+</details>

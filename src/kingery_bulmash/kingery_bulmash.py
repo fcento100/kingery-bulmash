@@ -55,9 +55,9 @@ class Blast_Parameters():
 
     def __post_init__(self):
         if self.neq <= 0:
-            raise ValueError("'neq' must be a positive number")
+            raise ValueError("'neq' must be > 0.")
         if self.distance <= 0:
-            raise ValueError("'distance' must be a positive number")
+            raise ValueError("'distance' must be > 0.")
         
         err = False
         
@@ -247,13 +247,3 @@ class Blast_Parameters():
                 'incident_impulse': (self.incident_impulse, self.all_units['incident_impulse']),
                 'reflected_impulse': (self.reflected_impulse, self.all_units['reflected_impulse']),
                 'shock_front_velocity': (self.shock_front_velocity, self.all_units['shock_front_velocity'])}
-
-
-if __name__ == "__main__":
-    NEQ = 10000
-    DIST = 500
-    try: 
-        RES1 = Blast_Parameters(unit_system=Units.METRIC, neq=NEQ, distance=DIST, safe=True)
-        print(RES1)
-    except ValueError as err:
-        print(err)
