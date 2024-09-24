@@ -115,7 +115,7 @@ class Blast_Parameters():
 
             # Reflected Impulse (kPa-ms)
             if 0.06 <= range_z <= 40:
-                reflected_impulse = _KB(range_z, 6.7853, -1.3466, 0.101, 0.01123, 0, 0, 0) * self.neq**(1/3)
+                reflected_impulse = _KB(range_z, 6.7853, -1.3466, 0.101, -0.01123, 0, 0, 0) * self.neq**(1/3)
             else:
                 reflected_impulse, err = None, True
 
