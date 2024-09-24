@@ -11,9 +11,7 @@ import kingery_bulmash as kb
 # NEQ = 100
 # DIST = 40 * NEQ ** (1/3)
 # res = kb.Blast_Parameters(unit_system=kb.Units.METRIC, neq=NEQ, distance=DIST, safe=False)
-
 # print(res)
-
 
 @pytest.mark.parametrize("sr, toa, ip, rp, ppd, ii, ri, sfv, slope", [
     (0.2, 0.037, 17310.36, 185301, 0.243, 369.5, 10520, 3.962, -1.342),
@@ -121,3 +119,6 @@ def test_metric(sr, toa, ip, rp, ppd, ii, ri, sfv, slope):
         assert res.shock_front_velocity is None
     else:
         assert res.shock_front_velocity == pytest.approx((sfv*1000), rel=REL)
+
+def test_imperial():
+    pass
