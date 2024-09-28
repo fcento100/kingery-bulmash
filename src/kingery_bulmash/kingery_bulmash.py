@@ -2,7 +2,7 @@
 """
 Created on Sat Aug 24 23:24:29 2024
 
-@author: fcento
+@author: fcento100
 """
 
 from dataclasses import dataclass, field
@@ -40,6 +40,9 @@ def _KB(Z: float,
 
 @dataclass(frozen=True)
 class Blast_Parameters():
+    """
+    Kingery-Bulmash Blast Parameters
+    """
     unit_system: Units
     neq: float
     distance: float
@@ -140,7 +143,7 @@ class Blast_Parameters():
         elif self.unit_system == Units.IMPERIAL:
             # Time of Arrival (ms).
             if 0.2 <= range_z <= 4.5:
-                time_of_arrival = _KB(range_z, -2.5671, 1.5348, 0.1313, 0.01825, 0.003656, 0.008615, 0) * self.neq**(1/3)
+                time_of_arrival = _KB(range_z, -2.5671, 1.5348, 0.1313, 0.01825, 0.003656, -0.008615, 0) * self.neq**(1/3)
             elif 4.5 < range_z <= 100:
                 time_of_arrival = _KB(range_z, -1.79097, -0.44021, 2.01409, -0.78101, 0.13045, -0.0081529, 0) * self.neq**(1/3)
             else:

@@ -1,10 +1,15 @@
-# Kingery-Bulmash 1984 Blast Parameters Calculator
+# Kingery-Bulmash Blast Parameters Calculator
 
-Python implementation of the formulas from the unclassified paper: 
+Python implementation of the formulas from: 
 
->**Simplified Kingery Airblast Calculations**, Aug 1994
+> #### Simplified Kingery Airblast Calculations
+> Swisdak, Jr, Michael M.  
+> NAVAL SURFACE WARFARE CENTER INDIAN HEAD DIV MD  
+> 1994 Aug 01  
+> Accession Number: [ADA526744](https://apps.dtic.mil/sti/pdfs/ADA526744.pdf)  
+> Security Classification: UNCLASSIFIED    
 
-It is applicable for TNT equivalent NEQ and hemispherical surface bursts.
+Applicable for TNT equivalent NEQ (Net Explosive Quantity) and hemispherical surface bursts.
 
 ## Installation
 
