@@ -184,3 +184,24 @@ for dist in range(0, 10000, 1000):
 9000 ft: None psi-ms
 ```
 </details>
+
+## Build/Install/Test From Source
+
+The build-system is [Hatch](https://hatch.pypa.io/latest/).
+
+To build and install from source, clone the repository and in the root folder run:
+```bash
+hatch build
+```
+To install with pip, also from the root folder, run:
+
+```bash
+pip install dist\kingery_bulmash-X.X.X-py3-none-any.whl
+```
+Adjust the file name/path accordingly.
+
+To run tests:
+
+```bash
+hatch test
+```
