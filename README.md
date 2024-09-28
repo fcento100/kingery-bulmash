@@ -1,4 +1,4 @@
-# Kingery-Bulmash Blast Parameters Calculator
+# Kingery-Bulmash Blast Wave Characteristics Calculator
 
 Python implementation of the formulas from: 
 
