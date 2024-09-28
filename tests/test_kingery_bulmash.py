@@ -8,6 +8,7 @@ Created on Tue Sep 24 20:53:18 2024
 import pytest
 import kingery_bulmash as kb
 
+
 @pytest.mark.parametrize("sr, toa, ip, rp, ppd, ii, ri, sfv, slope", [
     (0.2, 0.037, 17310.36, 185301, 0.243, 369.5, 10520, 3.962, -1.342),
     (0.3, 0.066, 10180, 97546, 0.222, 215.7, 5285, 3.098, -1.322),
@@ -236,6 +237,7 @@ def test_imperial(sr, toa, ip, rp, ppd, ii, ri, sfv, slope):
         assert RES.shock_front_velocity is None
     else:
         assert round(RES.shock_front_velocity/1000, 3) == pytest.approx(sfv, rel=REL)
+
 
 @pytest.mark.parametrize("neq, dist, toa, ip, rp, ppd, ii, ri, sfv", [
     (2, 0.5, 0.13, 6907.65, 60186.76, 0.29, 221.36, 4255.88, 2556.69),

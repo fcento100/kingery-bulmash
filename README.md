@@ -1,6 +1,6 @@
 # Kingery-Bulmash Blast Wave Characteristics Calculator
 
-Python implementation of the formulas from: 
+Python implementation of the Simplified Kingery Airblast Formulas and Coefficients from: 
 
 > #### Simplified Kingery Airblast Calculations
 > Swisdak, Jr, Michael M.  
@@ -13,7 +13,7 @@ Applicable for TNT equivalent NEQ (Net Explosive Quantity) and hemispherical sur
 
 ## Installation
 
-Using pip:
+Using pip to install from [PyPI](https://pypi.org/project/kingery-bulmash/):
 
 ```bash
 pip install kingery-bulmash

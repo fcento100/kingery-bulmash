@@ -20,7 +20,7 @@ classifiers = [
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering",
 ]
-keywords = ["blast", "kingery","bulmash","tnt"]
+keywords = ["blast", "kingery","bulmash","TNT"]
 
 [project.urls]
 Homepage = "https://github.com/fcento100/kingery-bulmash"
